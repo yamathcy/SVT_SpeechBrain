@@ -12,6 +12,7 @@ import torchaudio
 import numpy as np
 from tqdm import tqdm
 from utils import note2frame
+import librosa
 SAMPLERATE = 16000
 
 
@@ -45,7 +46,7 @@ def source_separation_MIR_ST500(dataset_dir, spleeter_dir):
         soundfile.write(os.path.join(spleeter_dir, str(i), "Vocal.wav"), voc, 44100, subtype='PCM_16')
         soundfile.write(os.path.join(spleeter_dir, str(i), "Inst.wav"), acc, 44100, subtype='PCM_16')
 
-        
+
 def resample_dataset(folder, save_folder):
     """
     Sample code for resampling the vocal audio data from 44.1kHz to 16kHz, which is the input requirement of wav2vec 2.0

@@ -24,10 +24,10 @@ from speechbrain.pretrained.fetching import fetch
 # We check if transformers is installed.
 try:
     import transformers
-    from transformers import Wav2Vec2Model, HubertModel, Data2VecAudioModel, WavLMConfig
-    from transformers import Wav2Vec2Config, HubertConfig, Data2VecAudioConfig, WavLMModel
-    from transformers import Wav2Vec2FeatureExtractor
-    from transformers import Wav2Vec2ForPreTraining
+    from transformers import Wav2Vec2Model, HubertModel, Data2VecAudioModel, WavLMConfig, AutoModel
+    from transformers import Wav2Vec2Config, HubertConfig, Data2VecAudioConfig, WavLMModel, AutoConfig
+    from transformers import Wav2Vec2FeatureExtractor, AutoFeatureExtractor
+    from transformers import Wav2Vec2ForPreTraining, AutoForPreTraining
     from transformers.models.wav2vec2.modeling_wav2vec2 import (
         _compute_mask_indices,
     )
@@ -100,7 +100,7 @@ class HuggingFaceWav2Vec2(nn.Module):
 
         # Download the extractor from HuggingFace.
         # The extractor is only used to retrieve the normalisation information
-        self.feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(
+        self.feature_extractor = AutoFeatureExtractor.from_pretrained(
             source, cache_dir=save_path
         )
 
@@ -118,9 +118,9 @@ class HuggingFaceWav2Vec2(nn.Module):
             config = HF_config.get("wav2vec2")
             model = HF_models.get("wav2vec2")
 
-        # Download and load the model
+        # # Download and load the model
         self._from_pretrained(
-            source, config=config, model=model, save_path=save_path
+            source, config=AutoConfig, model=AutoModel, save_path=save_path
         )
 
         # set apply_spec_augment
