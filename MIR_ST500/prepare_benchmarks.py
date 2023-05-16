@@ -162,10 +162,10 @@ def prepare_all_SVT_datasets(args, save_folder="./data"):
     prepare_csv_benchmarks(folder=os.path.join(args.mir_st500, "wav16kHz", "test"), save_path=os.path.join(csv_folder, "mir_st500_test.csv"), dur_thrd=dur_thrd)
 
     # prepare ISMIR2014 dataset
-    prepare_csv_benchmarks(folder=os.path.join(args.ismir, "wav16kHz"), save_path=os.path.join(csv_folder, "ismir2014.csv"), dur_thrd=dur_thrd)
+    # prepare_csv_benchmarks(folder=os.path.join(args.ismir, "wav16kHz"), save_path=os.path.join(csv_folder, "ismir2014.csv"), dur_thrd=dur_thrd)
 
     # prepare TONAS dataset
-    prepare_csv_benchmarks(folder=os.path.join(args.tonas, "wav16kHz"), save_path=os.path.join(csv_folder, "tonas.csv"), dur_thrd=dur_thrd)
+    # prepare_csv_benchmarks(folder=os.path.join(args.tonas, "wav16kHz"), save_path=os.path.join(csv_folder, "tonas.csv"), dur_thrd=dur_thrd)
 
 
 if __name__ == "__main__":
@@ -174,8 +174,8 @@ if __name__ == "__main__":
     parser.add_argument("--duration", type=int, default=5, help="The threshold to split the songs")
     parser.add_argument("--frame_rate", type=float, default=49.8, help="The frame-rate for SSL models")
     parser.add_argument("--mir_st500", type=str, default="/path/to/MIR_ST500", help="The path to save MIR-ST500 dataset")
-    parser.add_argument("--ismir", type=str, default="/path/to/ISMIR2014", help="The path to save ISMIR2014 dataset")
-    parser.add_argument("--tonas", type=str, default="/path/to/TONAS", help="The path to save TONAS dataset")
+    # parser.add_argument("--ismir", type=str, default="/path/to/ISMIR2014", help="The path to save ISMIR2014 dataset")
+    # parser.add_argument("--tonas", type=str, default="/path/to/TONAS", help="The path to save TONAS dataset")
     args = parser.parse_args()
 
     prepare_all_SVT_datasets(args)
