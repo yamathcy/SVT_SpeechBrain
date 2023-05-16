@@ -114,7 +114,7 @@ def prepare_csv_benchmarks(folder, save_path, dur_thrd=5):
         # anno_np = np.load(anno_path)
         # print(anno_np.shape)
         audio, fs = torchaudio.load(audio_path)  # audio: [1, N] for mono or [2, N] for stero
-        assert fs == SAMPLERATE
+        assert fs == SAMPLERATE, "{} is not 16000, but {}".format(wav_file, fs)
         duration = audio.shape[1] / SAMPLERATE
         # determine the number of utterance
         utter_num = round(duration / dur_thrd)
