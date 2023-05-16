@@ -90,7 +90,7 @@ def prepare_frame_anno(gt_file, folder, frame_rate=49.8):
         # save frame-level annotations
         wav_file = os.path.join(folder, dir, "vocals.wav")
         audio, fs = torchaudio.load(wav_file)
-        assert fs == SAMPLERATE
+        assert fs == SAMPLERATE, "{} is not 16000, but {}".format(wav_file, fs)
         assert audio.shape[0] == 1
         duration = audio.shape[1] / SAMPLERATE
         length = round(duration * frame_rate)
