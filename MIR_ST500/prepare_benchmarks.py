@@ -150,10 +150,10 @@ def prepare_all_SVT_datasets(args, save_folder="./data"):
     prepare_frame_anno(gt_file=os.path.join(args.mir_st500, "Annotations.json"), folder=os.path.join(args.mir_st500, "wav16kHz", "test"), frame_rate=args.frame_rate)
     
     # prepare ISMIR2014 dataset
-    prepare_frame_anno(gt_file=os.path.join(args.ismir, "Annotations.json"), folder=os.path.join(args.ismir, "wav16kHz"), frame_rate=args.frame_rate)
+    # prepare_frame_anno(gt_file=os.path.join(args.ismir, "Annotations.json"), folder=os.path.join(args.ismir, "wav16kHz"), frame_rate=args.frame_rate)
 
     # prepare TONAS dataset
-    prepare_frame_anno(gt_file=os.path.join(args.tonas, "Annotations.json"), folder=os.path.join(args.tonas, "wav16kHz"), frame_rate=args.frame_rate)
+    # prepare_frame_anno(gt_file=os.path.join(args.tonas, "Annotations.json"), folder=os.path.join(args.tonas, "wav16kHz"), frame_rate=args.frame_rate)
 
     # Step II: prepare csv files
 
