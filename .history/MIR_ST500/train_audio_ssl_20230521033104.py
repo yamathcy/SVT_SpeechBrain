@@ -305,12 +305,6 @@ class SVT(sb.Brain):
                     "COn_f1": stage_stats["COn_f1"],
                 }
             )
-            wandb.log({
-                    "loss": stage_loss,
-                    "COnPOff_f1": stage_stats["COnPOff_f1"],
-                    "COnP_f1": stage_stats["COnP_f1"],
-                    "COn_f1": stage_stats["COn_f1"],
-                })
 
     def init_optimizers(self):
         "Initializes the wav2vec2 optimizer and model optimizer"
@@ -444,7 +438,6 @@ def dataio_prepare(hparams):
 
 
 if __name__ == "__main__":
-    
 
     # CLI:
     hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
@@ -455,7 +448,6 @@ if __name__ == "__main__":
 
     with open(hparams_file) as fin:
         hparams = load_hyperpyyaml(fin, overrides)
-    
 
     # Create experiment directory
     sb.create_experiment_directory(
@@ -463,14 +455,6 @@ if __name__ == "__main__":
         hyperparams_to_save=hparams_file,
         overrides=overrides,
     )
-
-    wandb.init(
-    # set the wandb project where this run will be logged
-    project="svt for SSL",
-    # track hyperparameters and run metadata
-    config= hparams
-    )
-
 
     # here we create the datasets objects as well as tokenization and encoding
     # train_data, valid_data, test_datasets = dataio_prepare(hparams)
@@ -507,4 +491,3 @@ if __name__ == "__main__":
             min_key="loss",        # changed by Xiangming, use min_key "loss" to load checkpointer
             test_loader_kwargs=hparams["test_dataloader_opts"]
         )
-
