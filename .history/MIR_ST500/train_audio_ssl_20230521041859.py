@@ -87,7 +87,6 @@ class Probe(nn.Module):
         x : torch.Tensor
             Input to transform linearly.
         """
-        print(x.shape)
         # if x.ndim == 4 and self.combine_dims:
         #     x = x.reshape(x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
         weights = torch.sigmoid(self.lw)

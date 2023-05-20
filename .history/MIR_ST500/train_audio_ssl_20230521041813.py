@@ -26,7 +26,7 @@ import wandb
 logger = logging.getLogger(__name__)
 
 
-class Probe(nn.Module):
+class Linear(nn.Module):
     """Computes a linear transformation y = wx + b.
 
     Arguments
@@ -87,7 +87,6 @@ class Probe(nn.Module):
         x : torch.Tensor
             Input to transform linearly.
         """
-        print(x.shape)
         # if x.ndim == 4 and self.combine_dims:
         #     x = x.reshape(x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
         weights = torch.sigmoid(self.lw)
@@ -111,8 +110,8 @@ class SVT(sb.Brain):
         pitch_octave_num = self.hparams.pitch_octave_num
         pitch_class_num = self.hparams.pitch_class_num
 
-        # logits = self.modules.model(feats)      # (batch, frame, 2+pitch_class+pitch_octave+2)
-        logits = Probe(feats)
+        logits = self.modules.model(feats)      # (batch, frame, 2+pitch_class+pitch_octave+2)
+        
         onset_logits = logits[:, :, 0]
         offset_logits = logits[:, :, 1]
         pitch_out = logits[:, :, 2:]
