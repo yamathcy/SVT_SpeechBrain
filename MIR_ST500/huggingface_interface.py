@@ -20,22 +20,30 @@ import torch.nn.functional as F
 from torch import nn
 from huggingface_hub import model_info
 from speechbrain.pretrained.fetching import fetch
+import transformers
+from transformers import Wav2Vec2Model, HubertModel, Data2VecAudioModel, WavLMConfig, AutoModel
+from transformers import Wav2Vec2Config, HubertConfig, Data2VecAudioConfig, WavLMModel, AutoConfig
+from transformers import Wav2Vec2FeatureExtractor, AutoFeatureExtractor
+# from transformers import Wav2Vec2ForPreTraining, AutoForPreTraining
+from transformers.models.wav2vec2.modeling_wav2vec2 import (
+    _compute_mask_indices,
+)
 
-# We check if transformers is installed.
-try:
-    import transformers
-    from transformers import Wav2Vec2Model, HubertModel, Data2VecAudioModel, WavLMConfig, AutoModel
-    from transformers import Wav2Vec2Config, HubertConfig, Data2VecAudioConfig, WavLMModel, AutoConfig
-    from transformers import Wav2Vec2FeatureExtractor, AutoFeatureExtractor
-    from transformers import Wav2Vec2ForPreTraining, AutoForPreTraining
-    from transformers.models.wav2vec2.modeling_wav2vec2 import (
-        _compute_mask_indices,
-    )
+# # We check if transformers is installed.
+# try:
+#     import transformers
+#     from transformers import Wav2Vec2Model, HubertModel, Data2VecAudioModel, WavLMConfig, AutoModel
+#     from transformers import Wav2Vec2Config, HubertConfig, Data2VecAudioConfig, WavLMModel, AutoConfig
+#     from transformers import Wav2Vec2FeatureExtractor, AutoFeatureExtractor
+#     from transformers import Wav2Vec2ForPreTraining, AutoForPreTraining
+#     from transformers.models.wav2vec2.modeling_wav2vec2 import (
+#         _compute_mask_indices,
+#     )
 
-except ImportError:
-    MSG = "Please install transformers from HuggingFace to use wav2vec2 / Hubert / Data2vec\n"
-    MSG += "E.G. run: pip install transformers"
-    raise ImportError(MSG)
+# except ImportError:
+#     MSG = "Please install transformers from HuggingFace to use wav2vec2 / Hubert / Data2vec\n"
+#     MSG += "E.G. run: pip install transformers"
+#     raise ImportError(MSG)
 
 logger = logging.getLogger(__name__)
 
