@@ -485,7 +485,7 @@ if __name__ == "__main__":
     train_data, test_datasets = dataio_prepare(hparams)
 
     # define module 
-    model = HuggingFaceWav2Vec2(source=hparams["wav2vec2_hub"],
+    model = HuggingFaceWav2Vec2(source=hparams["source"],
                                 output_norm=True,
                                 freeze=hparams["freeze_wav2vec"],
                                 save_path=hparams["wav2vec2_local"],
@@ -494,7 +494,7 @@ if __name__ == "__main__":
 
     # Trainer initialization
     asr_brain = SVT(
-        modules=model,
+        modules=hparams["modules"],
         hparams=hparams,
         run_opts=run_opts,
         checkpointer=hparams["checkpointer"],
