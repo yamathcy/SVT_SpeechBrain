@@ -299,7 +299,7 @@ class HuggingFaceWav2Vec2(nn.Module):
         # Extract wav2vec output
         # out = self.model(wav)[0]
         out = self.model(wav,output_hidden_states=True, return_dict=None, output_attentions=None)
-        h = out["hidden_states"]
+        h = x["hidden_states"]
         h = torch.stack(h, dim=3)
         print(out.shape)
 
