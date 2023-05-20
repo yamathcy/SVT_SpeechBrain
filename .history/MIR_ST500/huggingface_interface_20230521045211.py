@@ -358,6 +358,7 @@ class Probe(nn.Module):
             input_size = input_shape[-1]
             if len(input_shape) == 4 and self.combine_dims:
                 input_size = input_shape[2] * input_shape[3]
+        
         if input_size == 768:
             self.lw = self.layer_weights = torch.nn.parameter.Parameter(data=torch.ones(13), requires_grad=True)
         else:
