@@ -348,9 +348,9 @@ def dataio_prepare(hparams):
             "sorting must be random, ascending or descending"
         )
 
-    # valid_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
-    #     csv_path=hparams["valid_csv"], replacements={"data_root": data_folder},
-    # )
+    valid_data = sb.dataio.dataset.DynamicItemDataset.from_csv(
+        csv_path=hparams["valid_csv"], replacements={"data_root": data_folder},
+    )
     # NOTE: cannot filter the data. keep the utterances of each song are together
     # valid_data = valid_data.filtered_sorted(sort_key="duration")
 
@@ -430,8 +430,7 @@ def dataio_prepare(hparams):
         datasets,
         ["id", "sig", "anno", "cur_utter", "all_utter", "ref_intervals", "ref_pitchs"],
     )
-    # return train_data, valid_data, test_datasets
-    return train_data, test_datasets
+    return train_data, valid_data, test_datasets
 
 
 if __name__ == "__main__":
@@ -454,8 +453,7 @@ if __name__ == "__main__":
     )
 
     # here we create the datasets objects as well as tokenization and encoding
-    # train_data, valid_data, test_datasets = dataio_prepare(hparams)
-    train_data, test_datasets = dataio_prepare(hparams)
+    train_data, valid_data, test_datasets = dataio_prepare(hparams)
 
     # Trainer initialization
     asr_brain = SVT(
@@ -469,17 +467,10 @@ if __name__ == "__main__":
     asr_brain.fit(
         asr_brain.hparams.epoch_counter,
         train_data,
-        # valid_data,
+        valid_data,
         train_loader_kwargs=hparams["train_dataloader_opts"],
-        # valid_loader_kwargs=hparams["valid_dataloader_opts"],
+        valid_loader_kwargs=hparams["valid_dataloader_opts"],
     )
-    # asr_brain.fit(
-    #     asr_brain.hparams.epoch_counter,
-    #     train_data,
-    #     valid_data,
-    #     train_loader_kwargs=hparams["train_dataloader_opts"],
-    #     valid_loader_kwargs=hparams["valid_dataloader_opts"],
-    # )
 
     # Testing
     for k in test_datasets.keys():  # keys are test_clean, test_other etc
