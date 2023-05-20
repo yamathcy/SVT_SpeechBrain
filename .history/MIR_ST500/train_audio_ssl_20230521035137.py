@@ -305,12 +305,12 @@ class SVT(sb.Brain):
                     "COn_f1": stage_stats["COn_f1"],
                 }
             )
-            wandb.log({
-                    "loss": stage_loss,
-                    "COnPOff_f1": stage_stats["COnPOff_f1"],
-                    "COnP_f1": stage_stats["COnP_f1"],
-                    "COn_f1": stage_stats["COn_f1"],
-                })
+            # wandb.log({
+            #         "loss": stage_loss,
+            #         "COnPOff_f1": stage_stats["COnPOff_f1"],
+            #         "COnP_f1": stage_stats["COnP_f1"],
+            #         "COn_f1": stage_stats["COn_f1"],
+            #     })
 
     def init_optimizers(self):
         "Initializes the wav2vec2 optimizer and model optimizer"
@@ -464,15 +464,12 @@ if __name__ == "__main__":
         overrides=overrides,
     )
     wandb.init(project='SVTForSSL')
-    wandb.init(
-        # set the wandb project where this run will be logged
-        project="svt for SSL",
-        config={
-            "ssl_model:":hparams["ssl_model"],
-            "number_of_epochs": hparams["number_of_epochs"],
-            "batch_size": hparams["batch_size"],
-        }
-    )
+    # wandb.init(
+    # # set the wandb project where this run will be logged
+    # project="svt for SSL",
+    # # track hyperparameters and run metadata
+    # config= hparams
+    # )
 
 
     # here we create the datasets objects as well as tokenization and encoding

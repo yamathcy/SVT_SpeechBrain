@@ -305,12 +305,12 @@ class SVT(sb.Brain):
                     "COn_f1": stage_stats["COn_f1"],
                 }
             )
-            wandb.log({
-                    "loss": stage_loss,
-                    "COnPOff_f1": stage_stats["COnPOff_f1"],
-                    "COnP_f1": stage_stats["COnP_f1"],
-                    "COn_f1": stage_stats["COn_f1"],
-                })
+            # wandb.log({
+            #         "loss": stage_loss,
+            #         "COnPOff_f1": stage_stats["COnPOff_f1"],
+            #         "COnP_f1": stage_stats["COnP_f1"],
+            #         "COn_f1": stage_stats["COn_f1"],
+            #     })
 
     def init_optimizers(self):
         "Initializes the wav2vec2 optimizer and model optimizer"
