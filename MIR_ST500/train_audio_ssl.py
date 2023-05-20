@@ -494,7 +494,7 @@ if __name__ == "__main__":
 
     # Trainer initialization
     asr_brain = SVT(
-        modules=model,
+        modules=hparams["modules"],
         hparams=hparams,
         run_opts=run_opts,
         checkpointer=hparams["checkpointer"],
