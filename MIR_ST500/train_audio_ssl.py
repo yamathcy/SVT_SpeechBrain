@@ -25,7 +25,6 @@ import torch.nn as nn
 
 logger = logging.getLogger(__name__)
 
-
 class Probe(nn.Module):
     """Computes a linear transformation y = wx + b.
 
@@ -111,8 +110,8 @@ class SVT(sb.Brain):
         pitch_octave_num = self.hparams.pitch_octave_num
         pitch_class_num = self.hparams.pitch_class_num
 
-        # logits = self.modules.model(feats)      # (batch, frame, 2+pitch_class+pitch_octave+2)
-        logits = Probe(feats)
+        logits = self.modules.probe(feats)      # (batch, frame, 2+pitch_class+pitch_octave+2)
+        logits = self.probe(feats)
         onset_logits = logits[:, :, 0]
         offset_logits = logits[:, :, 1]
         pitch_out = logits[:, :, 2:]
