@@ -27,8 +27,8 @@ train_csv: !ref <csv_folder>/mir_st500_train.csv
 valid_csv: !ref <csv_folder>/mir_st500_valid.csv
 test_csv:
    - !ref <csv_folder>/mir_st500_test.csv
-   # - !ref <csv_folder>/tonas.csv
-   # - !ref <csv_folder>/ismir2014.csv
+   - !ref <csv_folder>/tonas.csv
+   - !ref <csv_folder>/ismir2014.csv
 
 noise_type: babble
 snr_db: -10
