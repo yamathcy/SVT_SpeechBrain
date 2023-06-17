@@ -119,6 +119,7 @@ model: !new:speechbrain.nnet.linear.Linear
 probe: !new:huggingface_interface.Probe
    input_size: !ref <feat_dim>
    n_neurons: !ref <output_neurons>
+   weight_sum: False
 
 modules:
    wav2vec2: !ref <wav2vec2>
