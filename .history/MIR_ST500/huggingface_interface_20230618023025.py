@@ -391,9 +391,6 @@ class Probe(nn.Module):
         return wx
     
     def get_layer_weight(self):
-        if self.weight_sum:
-            weights = torch.softmax(self.lw,dim=0).detach().cpu().numpy()
-        else:
-            weights = None
+        weights = torch.softmax(self.lw,dim=0).detach().cpu().numpy()
         return weights
 
