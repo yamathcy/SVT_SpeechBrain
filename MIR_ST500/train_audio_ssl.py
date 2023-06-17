@@ -300,6 +300,8 @@ class SVT(sb.Brain):
                 meta={"loss": stage_stats["loss"]}, min_keys=["loss"],
             )
         elif stage == sb.Stage.TEST:
+            lw = self.modules.probe.get_layer_weight()
+            print(lw)
             self.hparams.train_logger.log_stats(
                 stats_meta={"Epoch loaded": self.hparams.epoch_counter.current},
                 test_stats={
@@ -309,6 +311,7 @@ class SVT(sb.Brain):
                     "COn_f1": stage_stats["COn_f1"],
                 }
             )
+
             # wandb.log({
             #         "loss": stage_loss,
             #         "COnPOff_f1": stage_stats["COnPOff_f1"],
