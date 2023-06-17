@@ -134,7 +134,7 @@ class HuggingFaceWav2Vec2(nn.Module):
             source, config=AutoConfig, model=AutoModel, save_path=save_path
         )
 
-        self.probe = Probe(output_neurons, input_size=fet_dim)
+        self.probe = Probe(output_neurons, input_size=feat_dim)
 
         # set apply_spec_augment
         self.model.config.apply_spec_augment = apply_spec_augment
@@ -349,12 +349,10 @@ class Probe(nn.Module):
         input_size=None,
         bias=True,
         combine_dims=False,
-        weight_sum=False
     ):
         
         super().__init__()
         self.combine_dims = combine_dims
-        self.weight_sum = weight_sum
 
         if input_shape is None and input_size is None:
             raise ValueError("Expected one of input_shape or input_size")
@@ -381,11 +379,7 @@ class Probe(nn.Module):
         # print(x.shape)
         # if x.ndim == 4 and self.combine_dims:
         #     x = x.reshape(x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
-        
-        if self.weight_sum:
-            weights = torch.softmax(self.lw)
-            x = torch.matmul(x, weights)
-        else:
-            x = x[:,:,:,-1]
+        weights = torch.sigmoid(self.lw)
+        x = torch.matmul(x, weights)
         wx = self.projector(x)
         return wx

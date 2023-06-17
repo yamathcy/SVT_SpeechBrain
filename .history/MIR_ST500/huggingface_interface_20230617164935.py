@@ -381,11 +381,8 @@ class Probe(nn.Module):
         # print(x.shape)
         # if x.ndim == 4 and self.combine_dims:
         #     x = x.reshape(x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
-        
         if self.weight_sum:
             weights = torch.softmax(self.lw)
             x = torch.matmul(x, weights)
-        else:
-            x = x[:,:,:,-1]
         wx = self.projector(x)
         return wx
