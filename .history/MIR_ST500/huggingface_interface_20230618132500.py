@@ -393,7 +393,7 @@ class Probe(nn.Module):
     def get_layer_weight(self):
         if self.weight_sum:
             weights = torch.softmax(self.lw,dim=0)
-            weights = weights.detach().cpu().numpy()
+            weights = detach().cpu().numpy()
         else:
             weights = None
         return weights
