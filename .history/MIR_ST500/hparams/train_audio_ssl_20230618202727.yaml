@@ -36,7 +36,7 @@ snr_db: -10
 add_noise: False
 # Training parameters
 number_of_epochs: 10
-lr: 0.001
+lr: 0.0003
 lr_wav2vec: 0.00005
 sorting: ascending
 auto_mix_prec: False
