@@ -310,7 +310,6 @@ class SVT(sb.Brain):
                 }
             )
             try:
-                print(self.modules.probe)
                 print(self.modules.probe.modules)
                 # print(self.modules.probe.lw)
                 lw = self.modules.probe.get_layer_weight()
