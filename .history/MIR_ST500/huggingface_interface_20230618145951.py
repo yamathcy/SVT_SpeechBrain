@@ -387,7 +387,7 @@ class Probe(nn.Module):
         else:
             x = x[:,:,:,-1]
         wx = self.projection(x)
-        return wx, weights
+        return wx, w
     
     def get_layer_weight(self):
         if self.weight_sum:

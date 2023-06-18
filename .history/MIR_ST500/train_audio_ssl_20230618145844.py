@@ -66,7 +66,7 @@ class SVT(sb.Brain):
         offset_prob_gt = anno[:, :, 1].float()
         pitch_octave_gt = anno[:, :, 2].long()
         pitch_class_gt = anno[:, :, 3].long()
-
+        
         # Compute BCE Loss
         onset_positive_weight = torch.tensor([self.hparams.onset_positive_weight,], device=self.device)
         onset_loss = self.hparams.onset_criterion(onset_logits, onset_prob_gt, length=wav_lens, pos_weight=onset_positive_weight)
@@ -105,17 +105,6 @@ class SVT(sb.Brain):
                 )
                 self.song_pred.append(frame_info)
             if cur_utter == all_utter:
-                # log layer_weights
-                try:
-                    # print(self.modules.probe.lw)
-                    for num,i in enumerate(lw):
-                        self.lw_list["weight_{}".format(num)]=i
-                    print(lw)
-                except:
-                    pass
-                finally:
-                    pass
-        
                 # we reach the end of a song
 
                 # estimation
@@ -206,7 +195,6 @@ class SVT(sb.Brain):
             self.COn_recall.reset()
             self.COn_f1 = AverageMeter() # self.hparams.COn_f1
             self.COn_f1.reset()
-            self.lw_list = {}
         else:
             # linear probing
             if epoch <= self.hparams.linear_prob_epochs:
@@ -257,7 +245,6 @@ class SVT(sb.Brain):
         """Gets called at the end of an epoch."""
         # Compute/store important stats
         stage_stats = {"loss": stage_loss}
-
         if stage == sb.Stage.TRAIN:
             self.train_stats = stage_stats
         else:
@@ -270,7 +257,6 @@ class SVT(sb.Brain):
             stage_stats["COn_precis"] = self.COn_precis.avg
             stage_stats["COn_recall"] = self.COn_recall.avg
             stage_stats["COn_f1"] = self.COn_f1.avg
-            stage_stats["lw"] = self.lw_list
 
         # Perform end-of-iteration things, like annealing, logging, etc.
         if stage == sb.Stage.VALID:
@@ -324,9 +310,20 @@ class SVT(sb.Brain):
                 }
             )
             try:
+                print(self.modules.probe)
+                lw = self.modules.probe.get_layer_weight()
+                print(lw)
+                print(self.modules.probe.modules)
+                print(self.modules.probe.modules.lw)
+                # print(self.modules.probe.lw)
+                lw = self.modules.probe.get_layer_weight()
+                lw_list = {}
+                for num,i in enumerate(lw):
+                    lw_list["weight_{}".format(num)]=i
+                print(lw)
                 self.hparams.train_logger.log_stats(
                 stats_meta={"Epoch loaded": self.hparams.epoch_counter.current},
-                    test_stats=self.lw_list
+                test_stats=lw_list
                 )
             except:
                 pass
