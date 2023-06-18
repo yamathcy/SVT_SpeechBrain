@@ -381,7 +381,7 @@ class Probe(nn.Module):
         # print(x.shape)
         # if x.ndim == 4 and self.combine_dims:
         #     x = x.reshape(x.shape[0], x.shape[1], x.shape[2] * x.shape[3])
-        # print(self.lw.shape)
+        print(self.lw.shape)
         weights = torch.softmax(self.lw,dim=-1)
         if self.weight_sum:
             x = torch.matmul(x, weights)
@@ -392,7 +392,7 @@ class Probe(nn.Module):
     
     def get_layer_weight(self):
         if self.weight_sum:
-            weights = torch.softmax(self.lw,dim=-1)
+            weights = torch.softmax(self.lw)
             weights = weights.detach().cpu().numpy()
         else:
             weights = None
